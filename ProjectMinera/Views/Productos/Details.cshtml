@@ -1,0 +1,67 @@
+﻿@model MineraLaPitaya.Models.Productos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Productos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Proveedores.NombreProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedores.NombreProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiempoRespuesta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiempoRespuesta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CapacidadProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CapacidadProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LugarEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LugarEntrega)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProducto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

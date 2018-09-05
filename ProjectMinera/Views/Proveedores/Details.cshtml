@@ -1,0 +1,107 @@
+﻿@model MineraLaPitaya.Models.Proveedores
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Proveedores</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ciudad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailCon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailCon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonoCon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonoCon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Extension)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Extension)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clasificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clasificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProveedor }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
