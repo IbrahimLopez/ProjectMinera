@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -17,6 +18,7 @@ namespace ProjectMinera.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -139,6 +141,11 @@ namespace ProjectMinera.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            List<SelectListItem> lst = new List<SelectListItem>();
+            lst.Add(new SelectListItem() { Text = "Administrador", Value = ProjectMinera.Models.ApplicationUser.RoleNames.ADMIN });
+            lst.Add(new SelectListItem() { Text = "Gerente", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Gerente });
+            lst.Add(new SelectListItem() { Text = "Empleado", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Empleado });
+            ViewBag.Roles = lst;
             return View();
         }
 
@@ -149,14 +156,25 @@ namespace ProjectMinera.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            List<SelectListItem> lst = new List<SelectListItem>();
+            lst.Add(new SelectListItem() { Text = "Administrador", Value = ProjectMinera.Models.ApplicationUser.RoleNames.ADMIN });
+            lst.Add(new SelectListItem() { Text = "Gerente", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Gerente });
+            lst.Add(new SelectListItem() { Text = "Empleado", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Empleado });
+            ViewBag.Roles = lst;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                                                 UserName = model.Email,
+                                                 Email = model.Email,
+                                                 Nombre = model.Nombre,
+                                                 ApellidoPaterno = model.ApellidoPaterno,
+                                                 ApellidoMaterno = model.ApellidoMaterno
+                                               };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    UserManager.AddToRole(user.Id, model.RolName);
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

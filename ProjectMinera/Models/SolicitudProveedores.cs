@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MineraLaPitaya.Models
+namespace ProjectMinera.Models
 {
-    public class Proveedores
+    public class SolicitudProveedores
     {
         [Key, Required]
-        public int IdProveedor { get; set; }
+        public int IdSolicitud { get; set; }
         [Display(Name = "Nombre del Proveedor"), Required]
         public string NombreProveedor { get; set; }
         [Display(Name = "Direccion"), Required]
@@ -32,9 +33,9 @@ namespace MineraLaPitaya.Models
         public string Clasificacion { get; set; }
         [Display(Name = "Esta activo"), Required]
         public bool Activo { get; set; }
-
-        //Cada proveedor tiene una coleccion de productos o servicios
-        public virtual ICollection<Productos> ProductosActivos { get; set; }
-
+        [Display(Name = "Fecha de Solicitud"), Required]
+        public DateTime FechaSolicitud { get; set; }
+        [DisplayName("Tipo de Solicitud"), Required]
+        public string TipoSolicitud { get; set; }
     }
 }
