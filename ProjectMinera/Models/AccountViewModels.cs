@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectMinera.Models
@@ -63,7 +64,9 @@ namespace ProjectMinera.Models
     }
 
     public class RegisterViewModel
-    {
+    {        
+        public string userID { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +82,22 @@ namespace ProjectMinera.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DisplayName("Nombre")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [DisplayName("Apellido Paterno")]
+        public string ApellidoPaterno { get; set; }
+
+        [Required]
+        [DisplayName("Apellido Materno")]
+        public string ApellidoMaterno { get; set; }
+
+        [DisplayName("Rol")]
+        public string RolName { get; set; }
+
     }
 
     public class ResetPasswordViewModel

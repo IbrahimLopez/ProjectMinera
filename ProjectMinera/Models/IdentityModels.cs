@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -17,7 +18,29 @@ namespace ProjectMinera.Models
             // Add custom user claims here
             return userIdentity;
         }
-        
+
+        [DisplayName("Nombre")]
+        public string Nombre { get; set; }
+
+        [DisplayName("Apellido Paterno")]
+        public string ApellidoPaterno { get; set; }
+
+        [DisplayName("Apellido Materno")]
+        public string ApellidoMaterno { get; set; }
+
+        [DisplayName("Nombre Completo")]
+        public string NombreCompleto
+        {
+            get { return this.Nombre + " " + this.ApellidoPaterno + " " + this.ApellidoMaterno; }
+        }
+
+        public static class RoleNames
+        {
+            public const string Empleado = "Empleado";
+            public const string Gerente = "Gerente";
+            public const string ADMIN = "Admin";
+        }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

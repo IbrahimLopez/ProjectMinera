@@ -207,12 +207,17 @@
     <Compile Include="Migrations\201809051502304_FirstMigration.Designer.cs">
       <DependentUpon>201809051502304_FirstMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809061747177_CambioEnRelacionBaseDeDatos.cs" />
+    <Compile Include="Migrations\201809061747177_CambioEnRelacionBaseDeDatos.Designer.cs">
+      <DependentUpon>201809061747177_CambioEnRelacionBaseDeDatos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Productos.cs" />
     <Compile Include="Models\Proveedores.cs" />
+    <Compile Include="Models\SolicitudProveedores.cs" />
     <Compile Include="Models\TiposProveedores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -311,6 +316,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809051502304_FirstMigration.resx">
       <DependentUpon>201809051502304_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809061747177_CambioEnRelacionBaseDeDatos.resx">
+      <DependentUpon>201809061747177_CambioEnRelacionBaseDeDatos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
