@@ -12,7 +12,6 @@ namespace ProjectMinera.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        private RegisterViewModel user;
 
         public ApplicationUser() { }
         public ApplicationUser(RegisterViewModel model)
@@ -54,6 +53,9 @@ namespace ProjectMinera.Models
         [DisplayName("Apellido Materno")]
         public string ApellidoMaterno { get; set; }
 
+        [DisplayName("Eliminado")]
+        public bool Eliminado{ get; set; }
+
         [DisplayName("Nombre Completo")]
         public string NombreCompleto
         {
@@ -84,10 +86,17 @@ namespace ProjectMinera.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
-        }       
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
 
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Proveedores> Proveedores { get; set; }
-        public DbSet<TiposProveedores> TiposProveedores { get; set; }        
-    }
+        public DbSet<TiposProveedores> TiposProveedores { get; set; }
+
+   }
 }

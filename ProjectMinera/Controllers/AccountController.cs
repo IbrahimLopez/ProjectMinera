@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -62,14 +63,15 @@ namespace ProjectMinera.Controllers
         {            
             if (User.IsInRole(ApplicationUser.RoleNames.ADMIN))
             {
-                ViewBag.Users = db.Users.ToList();
+                ViewBag.Users = db.Users.Where(usr=> usr.Eliminado == false).ToList();
+                var Users = db.Users.Where(usr => usr.Eliminado == false).ToList();
                 return View(db.Users.ToList());
             }
             else if (User.IsInRole(ApplicationUser.RoleNames.Gerente))
             {
                 ViewBag.UsersEmpleados = db.Users
                                            .Where(usr => usr.Roles
-                                           .FirstOrDefault().RoleId == RoleNames.Empleado)
+                                           .FirstOrDefault().RoleId == RoleNames.Empleado ||  usr.Eliminado == false)
                                            .ToList();
                 return View(db.Users.ToList());
             }
@@ -100,7 +102,8 @@ namespace ProjectMinera.Controllers
             {
                 return HttpNotFound();
             }
-            db.Users.Remove(usuario);
+            usuario.Eliminado = true;
+            db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -128,6 +131,7 @@ namespace ProjectMinera.Controllers
             ViewBag.userID = user.Id;
             ViewBag.editMode = true;
             ViewBag.roleName = roleName;
+           
 
             return vmUser;
         }
@@ -157,6 +161,11 @@ namespace ProjectMinera.Controllers
             {
                 //Remaininig fields are updated
                 //db.Entry(userEdited).State = EntityState.Modified;
+                List<string> roles =  (List<string>)await UserManager.GetRolesAsync(user.userID);
+                foreach (var role in roles)
+                {
+                    IdentityResult deletionResult = await UserManager.RemoveFromRolesAsync(user.userID, role);
+                }
 
                 if (User.IsInRole(RoleNames.Gerente))
                     UserManager.AddToRole(user.userID, RoleNames.Empleado);

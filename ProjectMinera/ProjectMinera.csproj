@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201809080752050_Se_elimino_Required_DeLaRelacionConUsers.Designer.cs">
       <DependentUpon>201809080752050_Se_elimino_Required_DeLaRelacionConUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.cs" />
+    <Compile Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.Designer.cs">
+      <DependentUpon>201809090854175_AtributoNuevoEnIdentityModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -308,6 +312,7 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Partial_UserForm.cshtml" />
+    <Content Include="Views\Account\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -337,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809080752050_Se_elimino_Required_DeLaRelacionConUsers.resx">
       <DependentUpon>201809080752050_Se_elimino_Required_DeLaRelacionConUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.resx">
+      <DependentUpon>201809090854175_AtributoNuevoEnIdentityModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
