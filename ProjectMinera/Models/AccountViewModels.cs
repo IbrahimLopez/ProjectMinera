@@ -64,7 +64,7 @@ namespace ProjectMinera.Models
     }
 
     public class RegisterViewModel
-    {        
+    {
         public string userID { get; set; }
 
         [Required]
@@ -97,6 +97,21 @@ namespace ProjectMinera.Models
 
         [DisplayName("Rol")]
         public string RolName { get; set; }
+
+        public string hash { get; set; }
+        public string stamp { get; set; }
+
+        public RegisterViewModel() { }
+        public RegisterViewModel(ApplicationUser admin)
+        {
+            this.Email = admin.Email;
+            this.Nombre = admin.Nombre;
+            this.ApellidoPaterno = admin.ApellidoPaterno;
+            this.ApellidoMaterno = admin.ApellidoMaterno;
+            this.userID = admin.Id;
+            this.hash = admin.PasswordHash;
+            this.stamp = admin.SecurityStamp;
+        }
 
     }
 

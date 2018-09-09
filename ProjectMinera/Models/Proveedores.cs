@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ProjectMinera.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -32,9 +34,19 @@ namespace MineraLaPitaya.Models
         public string Clasificacion { get; set; }
         [Display(Name = "Esta activo"), Required]
         public bool Activo { get; set; }
+        [Display(Name = "Fecha de Creacion")]
+        public DateTime FechaCreacion { get; set; }
 
         //Cada proveedor tiene una coleccion de productos o servicios
         public virtual ICollection<Productos> ProductosActivos { get; set; }
+
+        //Relacion con users       
+        // ForeignKey => dbo.IdentityUser        
+        public string UserId { get; set; }
+
+        [Display(Name = "Usuario")]        
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

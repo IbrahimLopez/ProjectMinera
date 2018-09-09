@@ -8,9 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using MineraLaPitaya.Models;
 using ProjectMinera.Models;
+using Microsoft.AspNet.Identity;
+using static ProjectMinera.Models.ApplicationUser;
 
 namespace ProjectMinera.Controllers
 {
+    [Authorize(Roles = RoleNames.ADMIN)]
     public class ProveedoresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -47,10 +50,16 @@ namespace ProjectMinera.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProveedor,NombreProveedor,Direccion,Ciudad,Estado,Telefono,NombreCon,EmailCon,TelefonoCon,Extension,Clasificacion,Estatus")] Proveedores proveedores)
+        public ActionResult Create( Proveedores proveedores)
         {
+            proveedores.FechaCreacion = DateTime.Now; //Se Obtiene la Fecha actual
+            var _UserId = User.Identity.GetUserId(); //Se obtiene el id del usuario que realizo ese movimiento
+            ApplicationUser _user = db.Users.Find(_UserId); //Se busca al usuario en la base de datos
+            //Se le asignan los datos
+            proveedores.UserId = _UserId;
+            proveedores.User = _user;
             if (ModelState.IsValid)
-            {
+            {                
                 db.Proveedores.Add(proveedores);
                 db.SaveChanges();
                 return RedirectToAction("Index");

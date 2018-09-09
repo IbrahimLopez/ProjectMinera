@@ -211,6 +211,14 @@
     <Compile Include="Migrations\201809061747177_CambioEnRelacionBaseDeDatos.Designer.cs">
       <DependentUpon>201809061747177_CambioEnRelacionBaseDeDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809071830501_Relacion_Usuario_ConTablas.cs" />
+    <Compile Include="Migrations\201809071830501_Relacion_Usuario_ConTablas.Designer.cs">
+      <DependentUpon>201809071830501_Relacion_Usuario_ConTablas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809080752050_Se_elimino_Required_DeLaRelacionConUsers.cs" />
+    <Compile Include="Migrations\201809080752050_Se_elimino_Required_DeLaRelacionConUsers.Designer.cs">
+      <DependentUpon>201809080752050_Se_elimino_Required_DeLaRelacionConUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -296,6 +304,10 @@
     <Content Include="Views\TiposProveedores\Details.cshtml" />
     <Content Include="Views\TiposProveedores\Edit.cshtml" />
     <Content Include="Views\TiposProveedores\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Partial_UserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +331,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809061747177_CambioEnRelacionBaseDeDatos.resx">
       <DependentUpon>201809061747177_CambioEnRelacionBaseDeDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809071830501_Relacion_Usuario_ConTablas.resx">
+      <DependentUpon>201809071830501_Relacion_Usuario_ConTablas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809080752050_Se_elimino_Required_DeLaRelacionConUsers.resx">
+      <DependentUpon>201809080752050_Se_elimino_Required_DeLaRelacionConUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

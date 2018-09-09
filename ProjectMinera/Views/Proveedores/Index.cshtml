@@ -41,7 +41,13 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Clasificacion)
-        </th>       
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.NombreCompleto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
         <th></th>
     </tr>
 
@@ -76,11 +82,17 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Clasificacion)
-        </td>       
+        </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdProveedor }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdProveedor }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdProveedor })
+            @Html.DisplayFor(modelItem => item.User.NombreCompleto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCreacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdProveedor }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdProveedor }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdProveedor })
         </td>
     </tr>
 }

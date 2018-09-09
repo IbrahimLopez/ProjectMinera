@@ -1,4 +1,5 @@
 ﻿@model MineraLaPitaya.Models.Proveedores
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Create";
@@ -18,6 +19,8 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    @*@Html.Hidden("UserId", this.User.Identity.GetUserId())
+    @Html.HiddenFor(m => m.FechaCreacion, DateTime.Now)*@
     
     <div class="form-horizontal">
         <h4>Proveedores</h4>

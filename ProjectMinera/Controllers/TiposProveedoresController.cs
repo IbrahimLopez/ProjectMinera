@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProjectMinera.Models;
+using static ProjectMinera.Models.ApplicationUser;
 
 namespace ProjectMinera.Controllers
 {
+    [Authorize(Roles = RoleNames.ADMIN)]
     public class TiposProveedoresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

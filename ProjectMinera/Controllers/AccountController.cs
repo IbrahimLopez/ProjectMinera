@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProjectMinera.Models;
+using static ProjectMinera.Models.ApplicationUser;
 
 namespace ProjectMinera.Controllers
 {
@@ -53,6 +56,128 @@ namespace ProjectMinera.Controllers
                 _userManager = value;
             }
         }
+
+        [Authorize]
+        public ActionResult Index()
+        {            
+            if (User.IsInRole(ApplicationUser.RoleNames.ADMIN))
+            {
+                ViewBag.Users = db.Users.ToList();
+                return View(db.Users.ToList());
+            }
+            else if (User.IsInRole(ApplicationUser.RoleNames.Gerente))
+            {
+                ViewBag.UsersEmpleados = db.Users
+                                           .Where(usr => usr.Roles
+                                           .FirstOrDefault().RoleId == RoleNames.Empleado)
+                                           .ToList();
+                return View(db.Users.ToList());
+            }
+            return HttpNotFound();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleNames.ADMIN + "," + RoleNames.Gerente)]
+        public ActionResult Delete(string id)
+        {
+            //Se busca el alumno a eliminar mediante el Id
+            var usuario = db.Users.Find(id);
+            if (usuario == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleNames.ADMIN + "," + RoleNames.Gerente)]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            var usuario = db.Users.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            db.Users.Remove(usuario);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Editar Usuario
+        [Authorize(Roles = RoleNames.ADMIN + "," + RoleNames.Gerente)]
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var user = db.Users.Find(id);
+            if (user == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            RegisterViewModel vmUser = prepareView(user);            
+            return View(vmUser);
+        }
+
+        private RegisterViewModel prepareView(ApplicationUser user)
+        {
+            RegisterViewModel vmUser = new RegisterViewModel(user);
+            string roleName = UserManager.GetRoles(user.Id).FirstOrDefault();
+
+            ViewBag.userID = user.Id;
+            ViewBag.editMode = true;
+            ViewBag.roleName = roleName;
+
+            return vmUser;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleNames.ADMIN + "," + RoleNames.Gerente)]
+        public async System.Threading.Tasks.Task<ActionResult> Edit(RegisterViewModel user)
+        {
+            ApplicationUser userEdited = new ApplicationUser(user);
+            UserStore<ApplicationUser> store = new UserStore<ApplicationUser>(db);
+
+            string newPassword = user.Password;
+            //If new password was introduced, it is encripted and saved
+            if (!String.IsNullOrEmpty(newPassword))
+            {
+                //Is found in db just to update his password
+                UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(store);
+                String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+                await store.SetPasswordHashAsync(userEdited, hashedNewPassword);
+            }
+
+            //It is possible to update the user if password is not introduced, it means it will still invariable
+            bool updateWithPasswordInvariable = ModelState.Where(ms => ms.Value.Errors.Count() > 0).Count() == 1
+                && ModelState["Password"].Errors.Count == 1;
+            if (ModelState.IsValid || updateWithPasswordInvariable)
+            {
+                //Remaininig fields are updated
+                //db.Entry(userEdited).State = EntityState.Modified;
+
+                if (User.IsInRole(RoleNames.Gerente))
+                    UserManager.AddToRole(user.userID, RoleNames.Empleado);
+                else if (User.IsInRole(RoleNames.ADMIN))
+                    UserManager.AddToRole(user.userID, user.RolName);
+
+                //UserManager.RemoveFromRoles(vmAdminDepartamento.userID);
+
+                await store.UpdateAsync(userEdited);
+                var updatedRegs = db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            user = prepareView(userEdited);
+            return View(user);
+        }
+
+
+
+
+
 
         //
         // GET: /Account/Login
@@ -138,50 +263,38 @@ namespace ProjectMinera.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = RoleNames.ADMIN + "," + RoleNames.Gerente)]
         public ActionResult Register()
-        {
-            List<SelectListItem> lst = new List<SelectListItem>();
-            lst.Add(new SelectListItem() { Text = "Administrador", Value = ProjectMinera.Models.ApplicationUser.RoleNames.ADMIN });
-            lst.Add(new SelectListItem() { Text = "Gerente", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Gerente });
-            lst.Add(new SelectListItem() { Text = "Empleado", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Empleado });
-            ViewBag.Roles = lst;
+        {        
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles =  RoleNames.ADMIN + "," + RoleNames.Gerente)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            List<SelectListItem> lst = new List<SelectListItem>();
-            lst.Add(new SelectListItem() { Text = "Administrador", Value = ProjectMinera.Models.ApplicationUser.RoleNames.ADMIN });
-            lst.Add(new SelectListItem() { Text = "Gerente", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Gerente });
-            lst.Add(new SelectListItem() { Text = "Empleado", Value = ProjectMinera.Models.ApplicationUser.RoleNames.Empleado });
-            ViewBag.Roles = lst;
+        {           
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
-                                                 UserName = model.Email,
-                                                 Email = model.Email,
-                                                 Nombre = model.Nombre,
-                                                 ApellidoPaterno = model.ApellidoPaterno,
-                                                 ApellidoMaterno = model.ApellidoMaterno
-                                               };
+                var user = new ApplicationUser(model);
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    UserManager.AddToRole(user.Id, model.RolName);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (User.IsInRole(RoleNames.Gerente))
+                        UserManager.AddToRole(user.Id, RoleNames.Empleado);
+                    else if (User.IsInRole(RoleNames.ADMIN))
+                        UserManager.AddToRole(user.Id, model.RolName);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");
                 }
                 AddErrors(result);
             }
