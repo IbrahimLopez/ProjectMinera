@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ProjectMinera.Models.SolicitudProveedores>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreProveedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ciudad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailCon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelefonoCon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Extension)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clasificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aprobada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaSolicitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoSolicitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MotivoSolicitud)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreProveedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ciudad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailCon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelefonoCon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Extension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clasificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aprobada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaSolicitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoSolicitud)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotivoSolicitud)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdSolicitud }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdSolicitud }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdSolicitud })
+        </td>
+    </tr>
+}
+
+</table>

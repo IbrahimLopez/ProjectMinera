@@ -32,8 +32,8 @@ namespace ProjectMinera.Models
         public string Extension { get; set; }
         [Display(Name = "Clasificacion"), Required]
         public string Clasificacion { get; set; }
-        [Display(Name = "Esta activo"), Required]
-        public bool Activo { get; set; }
+        [Display(Name = "Aprobada"), Required]
+        public bool Aprobada { get; set; }
         [Display(Name = "Fecha de Solicitud"), Required]
         public DateTime FechaSolicitud { get; set; }
         [DisplayName("Tipo de Solicitud"), Required]

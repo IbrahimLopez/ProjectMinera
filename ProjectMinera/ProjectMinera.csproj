@@ -199,6 +199,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\SolicitudProveedoresController.cs" />
     <Compile Include="Controllers\TiposProveedoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,6 +223,10 @@
     <Compile Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.cs" />
     <Compile Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.Designer.cs">
       <DependentUpon>201809090854175_AtributoNuevoEnIdentityModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809092237550_CambioDeNombre_Atributo_Activo_a_Aprobada.cs" />
+    <Compile Include="Migrations\201809092237550_CambioDeNombre_Atributo_Activo_a_Aprobada.Designer.cs">
+      <DependentUpon>201809092237550_CambioDeNombre_Atributo_Activo_a_Aprobada.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -313,6 +318,11 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Partial_UserForm.cshtml" />
     <Content Include="Views\Account\Editar.cshtml" />
+    <Content Include="Views\SolicitudProveedores\Create.cshtml" />
+    <Content Include="Views\SolicitudProveedores\Delete.cshtml" />
+    <Content Include="Views\SolicitudProveedores\Details.cshtml" />
+    <Content Include="Views\SolicitudProveedores\Edit.cshtml" />
+    <Content Include="Views\SolicitudProveedores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809090854175_AtributoNuevoEnIdentityModel.resx">
       <DependentUpon>201809090854175_AtributoNuevoEnIdentityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809092237550_CambioDeNombre_Atributo_Activo_a_Aprobada.resx">
+      <DependentUpon>201809092237550_CambioDeNombre_Atributo_Activo_a_Aprobada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
