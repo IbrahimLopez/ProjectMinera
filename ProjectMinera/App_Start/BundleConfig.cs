@@ -34,7 +34,9 @@ namespace ProjectMinera
 
             bundles.Add(new StyleBundle("~/assets/scss/css").IncludeDirectory(
                       "~/assets/scss", "*.css", true));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts")
+            .IncludeDirectory("~/assets/js", "*.js", true));
 
             bundles.Add(new StyleBundle("~/assets/scss/bootstrap/scss").IncludeDirectory(
                       "~/assets/scss/bootstrap", "*.scss", true));
