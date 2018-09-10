@@ -23,7 +23,7 @@ namespace ProjectMinera
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-Navbars.css",
                       "~/Content/site.css"));
         }
     }
