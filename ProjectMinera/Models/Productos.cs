@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectMinera.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,5 +27,12 @@ namespace MineraLaPitaya.Models
         public int IdProveedor { get; set; }
         public virtual Proveedores Proveedores { get; set; }
 
+        //Relacion con users       
+        // ForeignKey => dbo.IdentityUser
+        public string UserId { get; set; }
+
+        [Display(Name = "Usuario")]
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
     }
 }
