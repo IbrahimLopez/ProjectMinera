@@ -98,8 +98,8 @@ namespace ProjectMinera.Models
         public DbSet<Proveedores> Proveedores { get; set; }
         public DbSet<TiposProveedores> TiposProveedores { get; set; }
 
-        public System.Data.Entity.DbSet<ProjectMinera.Models.SolicitudProveedores> SolicitudProveedores { get; set; }
+        public DbSet<SolicitudProveedores> SolicitudProveedores { get; set; }
 
-        public System.Data.Entity.DbSet<ProjectMinera.Models.ApplicationUser> ApplicationUsers { get; set; }
+        
     }
 }

@@ -39,7 +39,7 @@ namespace ProjectMinera.Controllers
         // GET: SolicitudProveedores/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "Nombre");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Nombre");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace ProjectMinera.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "Nombre", solicitudProveedores.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Nombre", solicitudProveedores.UserId);
             return View(solicitudProveedores);
         }
 
@@ -73,7 +73,7 @@ namespace ProjectMinera.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "Nombre", solicitudProveedores.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Nombre", solicitudProveedores.UserId);
             return View(solicitudProveedores);
         }
 
@@ -90,7 +90,7 @@ namespace ProjectMinera.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "Nombre", solicitudProveedores.UserId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Nombre", solicitudProveedores.UserId);
             return View(solicitudProveedores);
         }
 
